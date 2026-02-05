@@ -1,7 +1,7 @@
 import React from 'react';
-import KartuKaca from '../components/KartuKaca';
+import KartuKaca from '../../components/dashboard/KartuKaca';
 import { EnvelopeSimple, LockKey, FireExtinguisher } from '@phosphor-icons/react';
-import bgImage from '../assets/bg-login.png';
+import bgImage from '../../assets/bg-login.png';
 
 const HalamanLogin = ({ onLogin }) => {
   return (

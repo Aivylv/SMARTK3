@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import KartuKaca from '../components/KartuKaca';
+import KartuKaca from '../../components/dashboard/KartuKaca';
 import { 
   MagnifyingGlass, Funnel, ArrowClockwise, Fire, Eye, ShieldCheck, SignOut, Archive, List, Calendar, Wrench, Bell
 } from '@phosphor-icons/react';

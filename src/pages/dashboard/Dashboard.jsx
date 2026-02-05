@@ -1,5 +1,5 @@
 import React from 'react';
-import KartuKaca from '../components/KartuKaca';
+import KartuKaca from '../../components/dashboard/KartuKaca';
 import { 
   Archive, CheckCircle, WarningOctagon, Clock, ShieldCheck, 
   Calendar, Wrench, Bell, List, SignOut, Fire, Warning, CaretRight, ArrowSquareOut

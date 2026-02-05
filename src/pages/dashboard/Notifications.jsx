@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import KartuKaca from '../components/KartuKaca';
+import KartuKaca from '../../components/dashboard/KartuKaca';
 import Header from '../components/Header';
 import { 
   Bell, CheckCircle, Warning, Info, WarningCircle, Check, ArrowLeft 

@@ -29,6 +29,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-refresh": "^0.18.0",
+    "react-router-dom": "^7.13.0",
     "rollup": "^4.57.1",
     "scheduler": "^0.27.0",
     "semver": "^6.3.1",

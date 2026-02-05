@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import KartuKaca from '../components/KartuKaca';
+import KartuKaca from '../../components/dashboard/KartuKaca';
 import { 
   ArrowLeft, QrCode, MapPin, CalendarCheck, FileText, CheckCircle, 
   PencilSimple, Printer, CaretDown, WarningCircle, Drop, Thermometer,
