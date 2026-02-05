@@ -1,82 +1,95 @@
-import React from 'react';
-import KartuKaca from '../../components/dashboard/KartuKaca';
-import { EnvelopeSimple, LockKey, FireExtinguisher } from '@phosphor-icons/react';
-import bgImage from '../../assets/bg-login.png';
+import React, { useState } from 'react';
+import { Eye, EyeSlash } from '@phosphor-icons/react';
+import bgImage from "../../assets/bg-login.png";
+import { useNavigate } from 'react-router-dom';
 
-const HalamanLogin = ({ onLogin }) => {
-  return (
-    <div className="h-screen w-full flex items-center justify-center relative overflow-hidden font-sans">
-        
-        <div className="absolute inset-0 z-0">
-            <img 
-                src={bgImage} 
-                alt="Background SMART K3" 
-                className="w-full h-full object-cover"
+const Login = () => {
+    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        navigate('/');
+    };
+
+    return (
+        <div className="h-screen w-full flex items-center justify-center relative overflow-hidden bg-[#1a1a1a]">
+            <div 
+                className="absolute inset-0 z-0 opacity-40"
+                style={{
+                    backgroundImage: `url(${bgImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    filter: 'blur(8px)'
+                }}
             />
-        </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-[#1a1a1a] z-0"></div>
 
-        {/* LAYER 2: OVERLAY GRADIENT (Hijau ke Ungu) */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#00A651]/80 via-[#1a1a1a]/60 to-[#662D91]/80 mix-blend-hard-light"></div>
-        
-        {/* LAYER 3: BLUR TAMBAHAN (Agar teks lebih terbaca) */}
-        <div className="absolute inset-0 z-0 backdrop-blur-[3px] bg-black/20"></div>
-
-        {/* LAYER 4: CONTENT CARD */}
-        <div className="z-10 w-full max-w-md px-4">
-            <KartuKaca className="p-8 border border-white/20 shadow-2xl backdrop-blur-xl bg-white/10">
-                <div className="flex flex-col items-center mb-8">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#00A651] to-[#662D91] rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-[#00A651]/20">
-                       <FireExtinguisher size={32} weight="fill" color="white" />
+            <div className="relative z-10 w-full max-w-md p-8 m-4">
+                <div className="kaca-card rounded-3xl p-8 backdrop-blur-xl border border-white/10 shadow-2xl relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-brand-gradient"></div>
+                    
+                    <div className="mb-8 text-center">
+                        <h1 className="text-3xl font-bold mb-2 text-white tracking-tight">
+                            Selamat Datang
+                        </h1>
+                        <p className="text-gray-400 text-sm">
+                            Silakan masuk untuk mengakses <span className="text-transparent bg-clip-text bg-brand-gradient font-bold">SMARTK3</span>
+                        </p>
                     </div>
-                    <h1 className="text-2xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#00A651] to-[#662D91] drop-shadow-sm">
-                        SMART K3RS
-                    </h1>
-                    <p className="text-xs text-gray-200 uppercase tracking-[0.2em] mt-1 font-medium">
-                        Sistem Manajemen K3RS
-                    </p>
-                </div>
 
-                <form onSubmit={(e) => { e.preventDefault(); onLogin(); }} className="space-y-6">
-                    <div>
-                        <label className="block text-xs text-gray-200 mb-1.5 ml-1 font-medium">Email</label>
-                        <div className="bg-white/10 border border-white/10 rounded-xl flex items-center px-4 py-3.5 focus-within:border-[#00A651] focus-within:bg-white/20 transition-all duration-300">
-                            <EnvelopeSimple className="text-gray-300 text-lg" />
+                    <form onSubmit={handleLogin} className="space-y-6">
+                        <div className="space-y-2">
+                            <label className="text-xs font-semibold text-gray-300 ml-1 uppercase tracking-wider">Email</label>
                             <input 
                                 type="email" 
-                                defaultValue="admin@smartk3.id" 
-                                className="bg-transparent border-none outline-none text-sm ml-3 w-full text-white placeholder-gray-400 font-light" 
-                                placeholder="Masukkan email anda"
+                                className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A651] focus:ring-1 focus:ring-[#00A651] transition duration-300"
+                                placeholder="nama@perusahaan.com"
+                                value={formData.email}
+                                onChange={(e) => setFormData({...formData, email: e.target.value})}
                             />
                         </div>
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-200 mb-1.5 ml-1 font-medium">Password</label>
-                        <div className="bg-white/10 border border-white/10 rounded-xl flex items-center px-4 py-3.5 focus-within:border-[#00A651] focus-within:bg-white/20 transition-all duration-300">
-                            <LockKey className="text-gray-300 text-lg" />
-                            <input 
-                                type="password" 
-                                defaultValue="123456" 
-                                className="bg-transparent border-none outline-none text-sm ml-3 w-full text-white placeholder-gray-400 font-light" 
-                                placeholder="Masukkan password"
-                            />
+
+                        <div className="space-y-2">
+                            <label className="text-xs font-semibold text-gray-300 ml-1 uppercase tracking-wider">Password</label>
+                            <div className="relative">
+                                <input 
+                                    type={showPassword ? "text" : "password"}
+                                    className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#00A651] focus:ring-1 focus:ring-[#00A651] transition duration-300"
+                                    placeholder="••••••••"
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                />
+                                <button 
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition"
+                                >
+                                    {showPassword ? <EyeSlash size={20} /> : <Eye size={20} />}
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <button 
-                      type="submit"
-                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00A651] to-[#662D91] text-white font-bold shadow-lg shadow-[#00A651]/30 hover:opacity-90 hover:scale-[1.02] transition-all duration-300 active:scale-95"
-                    >
-                      Masuk
-                    </button>
-                </form>
-            </KartuKaca>
-            
-            <p className="text-center text-[10px] text-gray-400 mt-6">
-                &copy; 2026 SMART K3 Hospital Systems
-            </p>
+
+                        <button 
+                            type="submit" 
+                            className="w-full bg-brand-gradient text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-[#00A651]/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mt-8 relative overflow-hidden"
+                        >
+                            <span className="relative z-10">MASUK</span>
+                            <div className="absolute inset-0 bg-white/20 translate-y-full hover:translate-y-0 transition-transform duration-300"></div>
+                        </button>
+                    </form>
+                </div>
+                
+                <p className="text-center text-gray-500 text-xs mt-8">
+                    &copy; 2025 SmartK3 System. All rights reserved.
+                </p>
+            </div>
         </div>
-    </div>
-  );
+    );
 };
 
-export default HalamanLogin;
+export default Login;

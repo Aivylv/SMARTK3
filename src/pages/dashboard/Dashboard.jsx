@@ -1,11 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import KartuKaca from '../../components/dashboard/KartuKaca';
+import Header from '../../components/common/Header';
 import { 
   Archive, CheckCircle, WarningOctagon, Clock, ShieldCheck, 
-  Calendar, Wrench, Bell, List, SignOut, Fire, Warning, CaretRight, ArrowSquareOut
+  Calendar, Wrench, List, SignOut, Fire, Warning, CaretRight, ArrowSquareOut
 } from '@phosphor-icons/react';
 
-const HalamanDashboard = ({ onNavigate, onLogout }) => {
+const Dashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex h-full bg-transparent text-white overflow-hidden relative font-sans">
       
@@ -21,35 +25,23 @@ const HalamanDashboard = ({ onNavigate, onLogout }) => {
         </div>
         
         <nav className="space-y-2 flex-1">
-            <NavItem onClick={() => onNavigate('dashboard')} icon={<Archive size={20} />} label="Dashboard" active />
-            <NavItem onClick={() => onNavigate('inventory')} icon={<List size={20} />} label="Inventory" />
-            <NavItem onClick={() => onNavigate('jadwal')} icon={<Calendar size={20} />} label="Jadwal" />
-            <NavItem onClick={() => onNavigate('maintenance')} icon={<Wrench size={20} />} label="Maintenance" />
-            <NavItem onClick={() => onNavigate('laporan')} icon={<ArrowSquareOut size={20} />} label="Laporan" />
+            <NavItem onClick={() => navigate('/')} icon={<Archive size={20} />} label="Dashboard" active />
+            <NavItem onClick={() => navigate('/inventory')} icon={<List size={20} />} label="Inventory" />
+            <NavItem onClick={() => navigate('/jadwal')} icon={<Calendar size={20} />} label="Jadwal" />
+            <NavItem onClick={() => navigate('/maintenance')} icon={<Wrench size={20} />} label="Maintenance" />
+            <NavItem onClick={() => navigate('/laporan')} icon={<ArrowSquareOut size={20} />} label="Laporan" />
         </nav>
 
-        <button onClick={onLogout} className="mt-auto flex items-center gap-2 text-gray-400 hover:text-[#EC008C] transition text-sm pt-6 border-t border-white/10">
+        <button onClick={() => navigate('/login')} className="mt-auto flex items-center gap-2 text-gray-400 hover:text-[#EC008C] transition text-sm pt-6 border-t border-white/10">
             <SignOut size={18} /> Keluar
         </button>
       </aside>
 
       <main className="flex-1 flex flex-col relative z-10 overflow-hidden">
         
-        <header className="flex justify-between items-center p-6 pb-2">
+        <Header>
             <button className="md:hidden text-2xl"><List /></button>
-            <div className="ml-auto kaca-card rounded-full px-4 py-2 flex items-center gap-4 border border-white/10 shadow-md">
-                <div onClick={() => onNavigate('notifikasi')} className="relative cursor-pointer hover:text-[#EC008C] transition">
-                    <Bell size={20} />
-                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#EC008C] rounded-full animate-pulse"></span>
-                </div>
-                <div className="h-6 w-px bg-white/20"></div>
-                <div className="text-right hidden sm:block">
-                    <p className="text-sm font-semibold">Ahmad Fauzi</p>
-                    <p className="text-[10px] text-[#00A651]">Teknisi APAR</p>
-                </div>
-                <div className="w-9 h-9 bg-gradient-to-br from-[#00A651] to-[#008c44] rounded-full flex items-center justify-center text-sm font-bold shadow-inner">AF</div>
-            </div>
-        </header>
+        </Header>
 
         <div className="flex-1 overflow-y-auto p-6 pt-2 space-y-6 pb-20 custom-scrollbar">
             
@@ -59,10 +51,10 @@ const HalamanDashboard = ({ onNavigate, onLogout }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <StatItem onClick={() => onNavigate('inventory')} icon={<Archive size={24}/>} angka="8" label="Total APAR" desc="Seluruh unit terdaftar" warna="bg-[#00A651]" />
-                <StatItem onClick={() => onNavigate('inventory')} icon={<CheckCircle size={24}/>} angka="6" label="APAR Baik" desc="Kondisi optimal" warna="bg-blue-500" />
-                <StatItem onClick={() => onNavigate('maintenance')} icon={<WarningOctagon size={24}/>} angka="1" label="APAR Rusak" desc="Perlu perbaikan" warna="bg-[#EC008C]" />
-                <StatItem onClick={() => onNavigate('jadwal')} icon={<Clock size={24}/>} angka="1" label="APAR Expired" desc="Melewati masa berlaku" warna="bg-[#F7931D]" />
+                <StatItem onClick={() => navigate('/inventory')} icon={<Archive size={24}/>} angka="8" label="Total APAR" desc="Seluruh unit terdaftar" warna="bg-[#00A651]" />
+                <StatItem onClick={() => navigate('/inventory')} icon={<CheckCircle size={24}/>} angka="6" label="APAR Baik" desc="Kondisi optimal" warna="bg-blue-500" />
+                <StatItem onClick={() => navigate('/maintenance')} icon={<WarningOctagon size={24}/>} angka="1" label="APAR Rusak" desc="Perlu perbaikan" warna="bg-[#EC008C]" />
+                <StatItem onClick={() => navigate('/jadwal')} icon={<Clock size={24}/>} angka="1" label="APAR Expired" desc="Melewati masa berlaku" warna="bg-[#F7931D]" />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -88,7 +80,7 @@ const HalamanDashboard = ({ onNavigate, onLogout }) => {
                         <span className="text-4xl font-bold">3</span>
                         <span className="text-xs text-gray-400 block mt-1">Unit perlu inspeksi</span>
                     </div>
-                    <div onClick={() => onNavigate('jadwal')} className="text-xs mt-4 text-[#F7931D] flex items-center gap-1 hover:underline cursor-pointer">
+                    <div onClick={() => navigate('/jadwal')} className="text-xs mt-4 text-[#F7931D] flex items-center gap-1 hover:underline cursor-pointer">
                         Lihat Jadwal <CaretRight weight="bold" />
                     </div>
                 </KartuKaca>
@@ -102,15 +94,16 @@ const HalamanDashboard = ({ onNavigate, onLogout }) => {
                         <span className="text-4xl font-bold">2</span>
                         <span className="text-xs text-gray-400 block mt-1">Work order aktif</span>
                     </div>
-                    <div onClick={() => onNavigate('maintenance')} className="text-xs mt-4 text-[#EC008C] flex items-center gap-1 hover:underline cursor-pointer">
+                    <div onClick={() => navigate('/maintenance')} className="text-xs mt-4 text-[#EC008C] flex items-center gap-1 hover:underline cursor-pointer">
                         Kelola Maintenance <CaretRight weight="bold" />
                     </div>
                 </KartuKaca>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
                 <KartuKaca className="p-6 flex flex-col shadow-lg">
-                    <SectionHeader title="Notifikasi Prioritas Tinggi" onNavigate={() => onNavigate('notifikasi')} />
+                    <SectionHeader title="Notifikasi Prioritas Tinggi" onNavigate={() => navigate('/notifikasi')} />
                     <div className="flex-1 bg-[#EC008C]/10 border border-[#EC008C]/40 rounded-2xl p-5 flex gap-4 items-start relative overflow-hidden group hover:bg-[#EC008C]/15 transition">
                         <div className="p-3 bg-[#EC008C] rounded-xl text-white shadow-lg shadow-[#EC008C]/30 shrink-0">
                             <Warning weight="fill" size={24} />
@@ -127,7 +120,7 @@ const HalamanDashboard = ({ onNavigate, onLogout }) => {
                 </KartuKaca>
 
                 <KartuKaca className="p-6 shadow-lg">
-                    <SectionHeader title="Jadwal Inspeksi Terdekat" onNavigate={() => onNavigate('jadwal')} />
+                    <SectionHeader title="Jadwal Inspeksi Terdekat" onNavigate={() => navigate('/jadwal')} />
                     <div className="space-y-3">
                         <JadwalItem id="APAR-002" lokasi="Ruang Server - Gedung B" tipe="CO2" />
                         <JadwalItem id="APAR-006" lokasi="Laboratorium - Gedung B" tipe="Powder" />
@@ -136,7 +129,8 @@ const HalamanDashboard = ({ onNavigate, onLogout }) => {
             </div>
 
             <KartuKaca className="p-6 shadow-lg">
-                <SectionHeader title="Work Order Terbaru" onNavigate={() => onNavigate('maintenance')} />
+                <SectionHeader title="Work Order Terbaru" onNavigate={() => navigate('/maintenance')} />
+                
                 <div className="-mx-6 -mb-6 mt-4 overflow-x-auto rounded-b-2xl">
                     <table className="w-full text-left text-sm text-gray-300">
                         <thead className="bg-black/20 text-xs uppercase text-gray-400 font-semibold tracking-wider backdrop-blur-md">
@@ -151,9 +145,21 @@ const HalamanDashboard = ({ onNavigate, onLogout }) => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5 bg-white/5">
-                            <TableRow wo="WO-2024-001" apar="APAR-003" jenis="Penggantian Tabung" jadwal="2024-12-20" teknisi="Dewi Lestari" status="Open" statusColor="text-gray-400 bg-gray-500/10 border-gray-500/20" prio="High" prioColor="text-[#EC008C] bg-[#EC008C]/10"/>
-                            <TableRow wo="WO-2024-002" apar="APAR-001" jenis="Penggantian Selang" jadwal="2024-12-15" teknisi="Ahmad Fauzi" status="In Progress" statusColor="text-blue-400 bg-blue-500/10 border-blue-500/20" prio="Medium" prioColor="text-[#F7931D] bg-[#F7931D]/10"/>
-                            <TableRow wo="WO-2024-003" apar="APAR-005" jenis="Isi Ulang" jadwal="2025-01-10" teknisi="Budi Santoso" status="Done" statusColor="text-[#00A651] bg-[#00A651]/10 border-[#00A651]/20" prio="Low" prioColor="text-gray-400 bg-gray-500/10"/>
+                            <TableRow 
+                                wo="WO-2024-001" apar="APAR-003" jenis="Penggantian Tabung" jadwal="2024-12-20" teknisi="Dewi Lestari"
+                                status="Open" statusColor="text-gray-400 bg-gray-500/10 border-gray-500/20"
+                                prio="High" prioColor="text-[#EC008C] bg-[#EC008C]/10"
+                            />
+                            <TableRow 
+                                wo="WO-2024-002" apar="APAR-001" jenis="Penggantian Selang" jadwal="2024-12-15" teknisi="Ahmad Fauzi"
+                                status="In Progress" statusColor="text-blue-400 bg-blue-500/10 border-blue-500/20"
+                                prio="Medium" prioColor="text-[#F7931D] bg-[#F7931D]/10"
+                            />
+                            <TableRow 
+                                wo="WO-2024-003" apar="APAR-005" jenis="Isi Ulang" jadwal="2025-01-10" teknisi="Budi Santoso"
+                                status="Done" statusColor="text-[#00A651] bg-[#00A651]/10 border-[#00A651]/20"
+                                prio="Low" prioColor="text-gray-400 bg-gray-500/10"
+                            />
                         </tbody>
                     </table>
                 </div>
@@ -168,14 +174,20 @@ const HalamanDashboard = ({ onNavigate, onLogout }) => {
 const SectionHeader = ({ title, onNavigate }) => (
     <div className="flex justify-between items-center mb-6 px-1">
         <h3 className="font-bold text-lg tracking-tight drop-shadow-sm">{title}</h3>
-        <div onClick={onNavigate} className="text-xs font-medium text-[#00A651] hover:text-[#00c460] transition flex items-center gap-1 group cursor-pointer">
+        <div 
+            onClick={onNavigate} 
+            className="text-xs font-medium text-[#00A651] hover:text-[#00c460] transition flex items-center gap-1 group cursor-pointer"
+        >
             Lihat Semua <ArrowSquareOut weight="bold" className="group-hover:translate-x-0.5 transition-transform"/>
         </div>
     </div>
 );
 
 const NavItem = ({ icon, label, active, onClick }) => (
-    <div onClick={onClick} className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium cursor-pointer transition ${active ? 'bg-[#00A651]/30 border border-[#00A651]/50 text-white shadow-md' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`}>
+    <div 
+        onClick={onClick}
+        className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium cursor-pointer transition ${active ? 'bg-[#00A651]/30 border border-[#00A651]/50 text-white shadow-md' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`}
+    >
         {icon} <span>{label}</span>
     </div>
 );
@@ -222,13 +234,16 @@ const TableRow = ({ wo, apar, jenis, jadwal, teknisi, status, statusColor, prio,
         <td className="px-6 py-4 tabular-nums text-gray-400">{jadwal}</td>
         <td className="px-6 py-4">{teknisi}</td>
         <td className="px-6 py-4">
-            <span className={`px-2.5 py-1 rounded-full text-xs font-bold border tracking-wide ${statusColor}`}>{status}</span>
+            <span className={`px-2.5 py-1 rounded-full text-xs font-bold border tracking-wide ${statusColor}`}>
+                {status}
+            </span>
         </td>
         <td className="px-6 py-4 text-right last:pr-8">
-            <span className={`px-2.5 py-1 rounded-lg text-xs font-bold tracking-wide ${prioColor}`}>{prio}</span>
+            <span className={`px-2.5 py-1 rounded-lg text-xs font-bold tracking-wide ${prioColor}`}>
+                {prio}
+            </span>
         </td>
     </tr>
 );
 
-
-export default HalamanDashboard;
+export default Dashboard;

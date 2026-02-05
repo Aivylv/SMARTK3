@@ -1,7 +1,10 @@
 import React from 'react';
 import { Bell } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
 
-const Header = ({ children, onNavigate }) => {
+const Header = ({ children }) => {
+  const navigate = useNavigate();
+
   return (
     <header className="flex justify-between items-center p-6 pb-2 w-full relative z-20 flex-shrink-0">
       <div className="flex items-center gap-4 flex-1">
@@ -11,7 +14,7 @@ const Header = ({ children, onNavigate }) => {
       <div className="ml-auto pl-4">
         <div className="flex items-center gap-4 bg-black/40 backdrop-blur-md border border-white/10 rounded-full px-4 py-2 shadow-lg hover:bg-black/60 transition duration-300">
             <div 
-                onClick={() => onNavigate('notifikasi')}
+                onClick={() => navigate('/notifikasi')}
                 className="relative cursor-pointer hover:text-[#EC008C] transition group"
             >
                 <Bell size={22} className="text-gray-200 group-hover:scale-110 transition-transform" />
